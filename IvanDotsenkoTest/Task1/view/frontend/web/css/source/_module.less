@@ -1,0 +1,39 @@
+& when (@media-common = true) {
+    .landing-subcategories-container {
+        margin: @indent__s 0 @indent__m 0;
+
+        .landing-subcategories-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: @indent__m;
+            list-style: none;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .landing-subcategory-item {
+            display: inline-block;
+            list-style: none;
+            list-style-type: none;
+            margin: 0;
+
+            &:before {
+                content: none;
+                display: none;
+            }
+        }
+
+        .landing-subcategory-link {
+            color: @link__color;
+            font-size: @font-size__base;
+            font-weight: @font-weight__semibold;
+            text-decoration: none;
+
+            &:hover {
+                color: @link__hover__color;
+                text-decoration: underline;
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+<?php
+/** @var \IvanDotsenkoTest\Task1\Block\Category\LandingSubcategories $block */
+if (!$block->isLandingCategory()) {
+    return;
+}
+$subcategories = $block->getSubcategories();
+if (empty($subcategories)) {
+    return;
+}
+?>
+<div class="landing-subcategories-container">
+    <ul class="landing-subcategories-list">
+        <?php foreach ($subcategories as $subcategory): ?>
+            <?php if ($subcategory->getIsActive()): ?>
+                <li class="landing-subcategory-item">
+                    <a href="<?= $block->escapeUrl($subcategory->getUrl()) ?>" class="landing-subcategory-link">
+                        <?= $block->escapeHtml($subcategory->getName()) ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+</div>
