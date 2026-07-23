@@ -10,17 +10,11 @@ define([
                 var self = this;
                 this._super();
 
-                /*
-                // Listen to AJAX add to cart event
-                $(document).on('ajax:addToCart', function () {
-                    self.openMinicart();
-                });
-                */
-
-                // Listen to cart customerData changes
+                // Track previous item count in cart
                 var cartData = customerData.get('cart');
                 var previousCount = cartData().summary_count || 0;
 
+                // Auto-open minicart when cart items count increases
                 cartData.subscribe(function (updatedCart) {
                     var newCount = updatedCart.summary_count || 0;
                     if (newCount > previousCount) {
@@ -28,15 +22,24 @@ define([
                     }
                     previousCount = newCount;
                 });
+
+                // Auto-open minicart on AJAX add to cart action
+                $(document).on('ajax:addToCart', function () {
+                    self.openMinicart();
+                });
             },
 
             /**
-             * Open minicart dropdown dialog
+             * Open mini shopping cart dropdown dialog
              */
             openMinicart: function () {
                 var $minicart = $('[data-block="minicart"]');
-                if ($minicart.length && typeof $minicart.dropdownDialog === 'function') {
-                    $minicart.dropdownDialog('open');
+                var $dialog = $minicart.find('[data-role="dropdownDialog"]');
+
+                if ($dialog.length && typeof $dialog.dropdownDialog === 'function') {
+                    $dialog.dropdownDialog('open');
+                } else if ($minicart.length) {
+                    $minicart.find('.action.showcart').trigger('click');
                 }
             }
         });
